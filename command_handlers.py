@@ -56,12 +56,12 @@ def handle_help_command(sender_id, interface, menu_name=None):
     if menu_name:
         update_user_state(sender_id, {'command': 'MENU', 'menu': menu_name, 'step': 1})
         if menu_name == 'bbs':
-            response = build_menu(bbs_menu_items, "📰BBS Menu📰")
+            response = build_menu(bbs_menu_items, "BBS Menu")
         elif menu_name == 'utilities':
-            response = build_menu(utilities_menu_items, "🛠️Utilities Menu🛠️")
+            response = build_menu(utilities_menu_items, "Utilities Menu")
     else:
         update_user_state(sender_id, {'command': 'MAIN_MENU', 'step': 1})  # Reset to main menu state
-        response = build_menu(main_menu_items, "💾TC² BBS💾")
+        response = build_menu(main_menu_items, "TC2 BBS")
     send_message(response, sender_id, interface)
 
 
@@ -73,14 +73,14 @@ def get_node_name(node_id, interface):
 
 
 def handle_mail_command(sender_id, interface):
-    response = "✉️Mail Menu✉️\nWhat would you like to do with mail?\n[R]ead  [S]end E[X]IT"
+    response = "Mail Menu\nWhat would you like to do with mail?\n[R]ead  [S]end E[X]IT"
     send_message(response, sender_id, interface)
     update_user_state(sender_id, {'command': 'MAIL', 'step': 1})
 
 
 
 def handle_bulletin_command(sender_id, interface):
-    response = "📰Bulletin Menu📰\nWhich board would you like to enter?\n[G]eneral  [I]nfo  [N]ews  [U]rgent"
+    response = "Bulletin Menu\nWhich board would you like to enter?\n[G]eneral  [I]nfo  [N]ews  [U]rgent"
     send_message(response, sender_id, interface)
     update_user_state(sender_id, {'command': 'BULLETIN_MENU', 'step': 1})
 
@@ -91,7 +91,7 @@ def handle_exit_command(sender_id, interface):
 
 
 def handle_stats_command(sender_id, interface):
-    response = "📊Stats Menu📊\nWhat stats would you like to view?\n[N]odes  [H]ardware  [R]oles  E[X]IT"
+    response = "Stats Menu\nWhat stats would you like to view?\n[N]odes  [H]ardware  [R]oles  E[X]IT"
     send_message(response, sender_id, interface)
     update_user_state(sender_id, {'command': 'STATS', 'step': 1})
 
@@ -104,7 +104,7 @@ def handle_fortune_command(sender_id, interface):
             send_message("No fortunes available.", sender_id, interface)
             return
         fortune = random.choice(fortunes).strip()
-        decorated_fortune = f"🔮 {fortune} 🔮"
+        decorated_fortune = f" {fortune} "
         send_message(decorated_fortune, sender_id, interface)
     except Exception as e:
         send_message(f"Error generating fortune: {e}", sender_id, interface)
