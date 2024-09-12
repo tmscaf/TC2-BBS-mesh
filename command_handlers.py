@@ -49,6 +49,8 @@ def build_menu(items, menu_name):
             menu_str += "[F]ortune\n"
         elif item.strip() == 'W':
             menu_str += "[W]all of Shame\n"
+        elif item.strip() == 'G':
+            menu_str += "[G]ames\n"  # Add Games to the menu
     return menu_str
 
 
@@ -59,6 +61,8 @@ def handle_help_command(sender_id, interface, menu_name=None):
             response = build_menu(bbs_menu_items, "BBS Menu")
         elif menu_name == 'utilities':
             response = build_menu(utilities_menu_items, "Utilities Menu")
+        elif menu_name == 'games':
+            response = build_menu(games_menu_items, "Games Menu")  # Games menu responseelif menu_name == 'games':
     else:
         update_user_state(sender_id, {'command': 'MAIN_MENU', 'step': 1})  # Reset to main menu state
         response = build_menu(main_menu_items, "TC2 BBS")
@@ -659,6 +663,28 @@ def handle_list_channels_command(sender_id, interface):
 
 
 def handle_quick_help_command(sender_id, interface):
-    response = ("✈️QUICK COMMANDS✈️\nSend command below for usage info:\nSM,, - Send "
+    response = ("QUICK COMMANDS\nSend command below for usage info:\nSM,, - Send "
                 "Mail\nCM - Check Mail\nPB,, - Post Bulletin\nCB,, - Check Bulletins\n")
     send_message(response, sender_id, interface)
+
+# New function to handle the games menu and game selection
+def handle_games_command(sender_id, interface):
+    response = "Games Menu\nWhat game would you like to play?\n[T]icTacToe  [C]hess  [T]rivia  E[X]IT"
+    send_message(response, sender_id, interface)
+    update_user_state(sender_id, {'command': 'GAMES', 'step': 1})
+
+# Function to handle game selection
+def handle_games_steps(sender_id, message, step, interface):
+    message = message.lower().strip()
+    if step == 1:
+        if message == 't':
+            send_message("Starting TicTacToe...", sender_id, interface)
+            # Call the function to start TicTacToe
+        elif message == 'c':
+            send_message("Starting Chess...", sender_id, interface)
+            # Call the function to start Chess
+        elif message == 't':
+            send_message("Starting Trivia...", sender_id, interface)
+            # Call the function to start Trivia
+        elif message == 'x':
+            handle_help_command(sender_id, interface)
